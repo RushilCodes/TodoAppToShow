@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "hono": "^4.7.4",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "build": "bun tsc --build --verbose --pretty",
+    "start": "bun run ./build/index.js"
+  }
+}
