@@ -1,0 +1,76 @@
+services:
+  web:
+    build:
+      context: ./Web
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server
+    restart: always
+    ports:
+      - "3001:3001"
+    depends_on:
+      - keydb
+      - sqlite
+    environment:
+      DATABASE_URL: "file:/data/db.sqlite"
+    volumes:
+      - ./data/sqlite:/data
+
+  keydb:
+    image: eqalpha/keydb
+    container_name: keydb
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/keydb:/data
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+      - server
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - grafana-data:/var/lib/grafana
+
+  loki:
+    image: grafana/loki:2.9.3
+    command: -config.file=/etc/loki/config.yaml
+    volumes:
+      - ./config/loki/config.yaml:/etc/loki/config.yaml
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:2.9.3
+    volumes:
+      - ./config/promtail:/etc/promtail
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yaml
+
+
+volumes:
+  grafana-data:
+  loki-data:
