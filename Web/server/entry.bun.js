@@ -12,7 +12,7 @@ var _a, _b, _c, _pendingHighSurrogate, _handle, _transform, _d;
 import { getNotFound } from "./@qwik-city-not-found-paths.js";
 import { isStaticPath } from "./@qwik-city-static-paths.js";
 import { v as verifySerializable$1, _ as _serializeData, a as _deserializeData } from "./q-D8W9Q_oD.js";
-import { s as setServerPlatform2, m as manifest, r as render } from "./q-D69EUvr7.js";
+import { s as setServerPlatform2, m as manifest, r as render } from "./q-nEw09dZ9.js";
 import { join, extname } from "node:path";
 import qwikCityPlan from "./@qwik-city-plan.js";
 var ServerError = class extends Error {

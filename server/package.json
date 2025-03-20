@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "hono": "^4.7.4",
+    "ioredis": "^5.6.0",
     "typescript": "^5.8.2"
   },
   "scripts": {
     "build": "bun tsc --build --verbose --pretty",
-    "start": "bun run ./build/index.js"
+    "start": "bun run ./build/index.js",
+    "bnr":"bun run build && bun start"
   }
 }

@@ -3,7 +3,6 @@ FROM oven/bun:slim AS builder
 WORKDIR /app
 COPY . .
 RUN bun i 
-RUN bun run build.client
 RUN bun run build
 
 FROM oven/bun:slim AS runner
